@@ -16,6 +16,8 @@ export class KickProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 3;
   identifier = 'kick';
   name = 'Kick';
+  requiredEnv = ['KICK_CLIENT_ID', 'KICK_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/overview';
   isBetweenSteps = false;
   editor = 'normal' as const;
   scopes = ['chat:write', 'user:read', 'channel:read'];

@@ -16,6 +16,8 @@ import { hasExtension } from '@gitroom/helpers/utils/has.extension';
 export class MeweProvider extends SocialAbstract implements SocialProvider {
   identifier = 'mewe';
   name = 'MeWe';
+  requiredEnv = ['MEWE_APP_ID', 'MEWE_API_KEY'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/mewe';
   isBetweenSteps = false;
   scopes = [] as string[];
   editor = 'normal' as const;

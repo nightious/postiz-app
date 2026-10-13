@@ -27,6 +27,8 @@ export class InstagramStandaloneProvider
 {
   identifier = 'instagram-standalone';
   name = 'Instagram\n(Standalone)';
+  requiredEnv = ['INSTAGRAM_APP_ID', 'INSTAGRAM_APP_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/overview';
   isBetweenSteps = false;
   refreshCron = true;
   scopes = [

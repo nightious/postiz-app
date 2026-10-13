@@ -57,6 +57,8 @@ export class RedditProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 1; // Reddit has strict rate limits (1 request per second)
   identifier = 'reddit';
   name = 'Reddit';
+  requiredEnv = ['REDDIT_CLIENT_ID', 'REDDIT_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/reddit';
   isBetweenSteps = false;
   scopes = ['read', 'identity', 'submit', 'flair'];
   editor = 'normal' as const;

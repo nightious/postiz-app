@@ -75,6 +75,8 @@ type XPendingData = {
 export class XProvider extends SocialAbstract implements SocialProvider {
   identifier = 'x';
   name = 'X';
+  requiredEnv = ['X_API_KEY', 'X_API_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/x-twitter';
   isBetweenSteps = false;
   scopes = [] as string[];
   stripLinks = () => !!process.env.STRIP_LINKS_FROM_X_POSTS;

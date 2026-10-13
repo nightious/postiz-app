@@ -872,5 +872,9 @@
   "post_now_all_channels": "Post all channels now",
   "schedule_post_in_all_channels_question": "This post was created for more than one channel. Do you want to schedule all of them?",
   "schedule_all_channels": "Schedule all channels",
-  "only_channel": "Only"
+  "only_channel": "Only",
+  "provider_not_configured_title": "{{name}} isn't set up on this server",
+  "provider_not_configured_body": "Postiz needs {{name}} app credentials before this channel can connect. Set these environment variables on the server, then restart Postiz:",
+  "provider_not_configured_admin": "If you don't run this server, send this message to your administrator.",
+  "provider_not_configured_guide": "Open the {{name}} setup guide"
 }

@@ -15,6 +15,8 @@ export class TwitchProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 5; // Twitch limits are per user
   identifier = 'twitch';
   name = 'Twitch';
+  requiredEnv = ['TWITCH_CLIENT_ID', 'TWITCH_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/overview';
   isBetweenSteps = false;
   editor = 'normal' as const;
   scopes = ['user:write:chat', 'user:read:chat', 'moderator:manage:announcements'];

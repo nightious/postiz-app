@@ -86,6 +86,8 @@ export class TumblrProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 3;
   identifier = 'tumblr';
   name = 'Tumblr';
+  requiredEnv = ['TUMBLR_CLIENT_ID', 'TUMBLR_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/tumblr';
   isBetweenSteps = true;
   scopes = ['write', 'offline_access'];
   editor = 'normal' as const;

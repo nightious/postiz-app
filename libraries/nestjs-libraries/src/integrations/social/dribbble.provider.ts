@@ -21,6 +21,8 @@ export class DribbbleProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 3; // Dribbble has moderate API limits
   identifier = 'dribbble';
   name = 'Dribbble';
+  requiredEnv = ['DRIBBBLE_CLIENT_ID', 'DRIBBBLE_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/dribbble';
   isBetweenSteps = false;
   scopes = ['public', 'upload'];
   editor = 'normal' as const;

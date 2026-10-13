@@ -58,6 +58,8 @@ type LinkedinPendingData = {
 export class LinkedinProvider extends SocialAbstract implements SocialProvider {
   identifier = 'linkedin';
   name = 'LinkedIn';
+  requiredEnv = ['LINKEDIN_CLIENT_ID', 'LINKEDIN_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/linkedin';
   oneTimeToken = true;
 
   isBetweenSteps = false;

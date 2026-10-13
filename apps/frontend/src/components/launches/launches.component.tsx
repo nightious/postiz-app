@@ -3,6 +3,7 @@
 import {
   AddProviderButton,
   CustomVariables,
+  useConnectError,
 } from '@gitroom/frontend/components/launches/add.provider.component';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import SafeImage from '@gitroom/react/helpers/safe.image';
@@ -466,6 +467,7 @@ export const LaunchesComponent = () => {
   const fireEvents = useFireEvents();
   const t = useT();
   const modal = useModals();
+  const connectError = useConnectError();
   const [reload, setReload] = useState(false);
   const [collapseMenu, setCollapseMenu] = useCookie('collapseMenu', '0');
   const [channelsOpen, setChannelsOpen] = useState(false);
@@ -575,7 +577,7 @@ export const LaunchesComponent = () => {
           return;
         }
 
-        const { url } = await (
+        const body = await (
           await fetch(
             `/integrations/social/${integration.identifier}?refresh=${integration.internalId}`,
             {
@@ -583,9 +585,12 @@ export const LaunchesComponent = () => {
             }
           )
         ).json();
-        window.location.href = url;
+        if (connectError(body)) {
+          return;
+        }
+        window.location.href = body.url;
       },
-    []
+    [connectError, fetch, modal, router, t]
   );
   useEffect(() => {
     if (typeof window === 'undefined') {

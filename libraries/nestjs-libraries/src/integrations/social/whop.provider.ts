@@ -21,6 +21,8 @@ export class WhopProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 3; // Whop limits are per token
   identifier = 'whop';
   name = 'Whop';
+  requiredEnv = ['WHOP_CLIENT_ID'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/whop';
   isBetweenSteps = false;
   scopes = ['openid', 'profile', 'email', 'forum:post:create', 'forum:read', 'company:basic:read'];
   refreshCron = false;

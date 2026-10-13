@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   Post,
   Put,
@@ -247,6 +248,14 @@ export class IntegrationsController {
       throw new Error('Missing external url');
     }
 
+    const missingEnv = this._integrationManager.getMissingEnv(
+      integrationProvider.identifier
+    );
+    if (missingEnv) {
+      Logger.warn(missingEnv.message);
+      return { err: true, ...missingEnv };
+    }
+
     try {
       const getExternalUrl = integrationProvider.externalUrl
         ? {
@@ -281,6 +290,7 @@ export class IntegrationsController {
 
       return { url };
     } catch (err) {
+      console.log(err);
       return { err: true };
     }
   }

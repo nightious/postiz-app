@@ -35,6 +35,8 @@ export class MastodonProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 10; // Mastodon limits are per user, not per app
   identifier = 'mastodon';
   name = 'Mastodon';
+  requiredEnv = ['MASTODON_CLIENT_ID', 'MASTODON_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/mastodon';
   isBetweenSteps = false;
   scopes = ['write:statuses', 'profile', 'write:media'];
   editor = 'normal' as const;

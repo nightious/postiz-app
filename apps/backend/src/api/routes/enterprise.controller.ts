@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Logger, Param, Post, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from '@gitroom/helpers/auth/auth.service';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
@@ -92,6 +92,12 @@ export class EnterpriseController {
       const integrationProvider = this._integrationManager.getSocialIntegration(
         load.provider
       );
+
+      const missingEnv = this._integrationManager.getMissingEnv(load.provider);
+      if (missingEnv) {
+        Logger.warn(missingEnv.message);
+        return;
+      }
 
       const { codeVerifier, state, url } =
         await integrationProvider.generateAuthUrl();

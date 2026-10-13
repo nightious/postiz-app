@@ -53,6 +53,8 @@ export class PinterestProvider
 {
   identifier = 'pinterest';
   name = 'Pinterest';
+  requiredEnv = ['PINTEREST_CLIENT_ID', 'PINTEREST_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/pinterest';
   isBetweenSteps = false;
   scopes = [
     'boards:read',

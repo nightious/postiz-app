@@ -42,6 +42,18 @@ export class GmbProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 3;
   identifier = 'gmb';
   name = 'Google My Business';
+  // Same per-variable YouTube fallback as clientAndGmb()
+  get requiredEnv() {
+    return [
+      process.env.GOOGLE_GMB_CLIENT_ID
+        ? 'GOOGLE_GMB_CLIENT_ID'
+        : 'YOUTUBE_CLIENT_ID',
+      process.env.GOOGLE_GMB_CLIENT_SECRET
+        ? 'GOOGLE_GMB_CLIENT_SECRET'
+        : 'YOUTUBE_CLIENT_SECRET',
+    ];
+  }
+  docsUrl = 'https://docs.postiz.com/self-host/providers/google-my-business';
   isBetweenSteps = true;
   scopes = [
     'https://www.googleapis.com/auth/userinfo.profile',

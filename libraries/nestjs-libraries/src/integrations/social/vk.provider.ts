@@ -21,6 +21,8 @@ export class VkProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 5; // VK limits are per user token
   identifier = 'vk';
   name = 'VK';
+  requiredEnv = ['VK_ID'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/overview';
   isBetweenSteps = false;
   scopes = [
     'vkid.personal_info',

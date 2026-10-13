@@ -217,6 +217,31 @@ export class IntegrationManager {
     };
   }
 
+  // Self-hosted instances often leave provider credentials unset (compose
+  // ships them as ''), which would send users to the platform with an empty
+  // client_id. Empty or whitespace-only counts as missing.
+  getMissingEnv(identifier: string) {
+    const provider = this.getSocialIntegration(identifier);
+    const missing = (provider?.requiredEnv || []).filter(
+      (key) => !process.env[key]?.trim()
+    );
+
+    if (!missing.length) {
+      return null;
+    }
+
+    // Some names carry a line break for the add-channel tile
+    const name = provider.name.replace(/\n/g, ' ');
+    return {
+      name,
+      missing,
+      docsUrl: provider.docsUrl,
+      message: `${name} is not configured: set ${missing.join(
+        ', '
+      )}. Setup guide: ${provider.docsUrl}`,
+    };
+  }
+
   getAllowedSocialsIntegrations() {
     return socialIntegrationList.map((p) => p.identifier);
   }

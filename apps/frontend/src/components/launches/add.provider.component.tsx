@@ -311,6 +311,99 @@ const ExtensionNotFound: FC = () => {
   );
 };
 
+const ProviderNotConfigured: FC<{
+  name: string;
+  missing: string[];
+  docsUrl: string;
+}> = ({ name, missing, docsUrl }) => {
+  const modals = useModals();
+  const t = useT();
+  return (
+    <div className="flex flex-col gap-[16px] pt-[8px]">
+      <p className="text-[14px] text-textColor/80">
+        {t(
+          'provider_not_configured_body',
+          'Postiz needs {{name}} app credentials before this channel can connect. Set these environment variables on the server, then restart Postiz:',
+          { name }
+        )}
+      </p>
+      <ul className="flex flex-col gap-[8px] list-disc ps-[20px] text-[14px] text-textColor/80">
+        {missing.map((key) => (
+          <li key={key}>
+            <code>{key}</code>
+          </li>
+        ))}
+      </ul>
+      <p className="text-[14px] text-textColor/80">
+        {t(
+          'provider_not_configured_admin',
+          "If you don't run this server, send this message to your administrator."
+        )}
+      </p>
+      <div className="flex gap-[10px] mobile:flex-col">
+        <Button
+          type="button"
+          className="flex-1 mobile:flex-none mobile:h-auto mobile:py-[8px]"
+          onClick={() => {
+            window.open(docsUrl, '_blank');
+          }}
+        >
+          {t('provider_not_configured_guide', 'Open the {{name}} setup guide', {
+            name,
+          })}
+        </Button>
+        <Button
+          type="button"
+          className="flex-1 mobile:flex-none !bg-transparent border border-tableBorder text-textColor"
+          onClick={() => modals.closeCurrent()}
+        >
+          {t('close', 'Close')}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+// Takes the GET /integrations/social/:id body; returns true when it showed an error.
+export const useConnectError = () => {
+  const modal = useModals();
+  const toaster = useToaster();
+  const t = useT();
+  return (data: {
+    err?: boolean;
+    name: string;
+    missing?: string[];
+    docsUrl: string;
+  }) => {
+    if (data.err && data.missing) {
+      modal.openModal({
+        title: t(
+          'provider_not_configured_title',
+          "{{name}} isn't set up on this server",
+          { name: data.name }
+        ),
+        withCloseButton: true,
+        children: (
+          <ProviderNotConfigured
+            name={data.name}
+            missing={data.missing}
+            docsUrl={data.docsUrl}
+          />
+        ),
+      });
+      return true;
+    }
+    if (data.err) {
+      toaster.show(
+        t('could_not_connect_to_platform', 'Could not connect to the platform'),
+        'warning'
+      );
+      return true;
+    }
+    return false;
+  };
+};
+
 const ChromeExtensionWarning: FC<{
   onConfirm: () => void;
   onCancel: () => void;
@@ -413,6 +506,7 @@ export const AddProviderComponent: FC<{
   const router = useRouter();
   const fetch = useFetch();
   const modal = useModals();
+  const connectError = useConnectError();
   const getSocialLink = useCallback(
     (
         invite: boolean,
@@ -488,17 +582,11 @@ export const AddProviderComponent: FC<{
           if (response.status === 402) {
             return;
           }
-          const { url, err } = await response.json();
-          if (err) {
-            toaster.show(
-              t(
-                'could_not_connect_to_platform',
-                'Could not connect to the platform'
-              ),
-              'warning'
-            );
+          const body = await response.json();
+          if (connectError(body)) {
             return;
           }
+          const { url } = body;
 
           if (invite) {
             toaster.show(

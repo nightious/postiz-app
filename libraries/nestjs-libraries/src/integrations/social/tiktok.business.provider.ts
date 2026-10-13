@@ -38,6 +38,8 @@ export class TiktokBusinessProvider
 {
   identifier = 'tiktok-business';
   name = 'TikTok';
+  requiredEnv = ['TIKTOK_BUSINESS_CLIENT_ID', 'TIKTOK_BUSINESS_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/tiktok';
   isBetweenSteps = false;
   convertToJPEG = true;
   scopes = [

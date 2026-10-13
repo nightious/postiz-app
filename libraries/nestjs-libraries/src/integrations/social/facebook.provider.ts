@@ -31,6 +31,8 @@ export const META_GRAPH_API_VERSION = 'v25.0';
 export class FacebookProvider extends SocialAbstract implements SocialProvider {
   identifier = 'facebook';
   name = 'Facebook Page';
+  requiredEnv = ['FACEBOOK_APP_ID', 'FACEBOOK_APP_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/facebook';
   isBetweenSteps = true;
   scopes = [
     'pages_show_list',

@@ -31,6 +31,8 @@ export class InstagramProvider
 {
   identifier = 'instagram';
   name = 'Instagram\n(Facebook Business)';
+  requiredEnv = ['FACEBOOK_APP_ID', 'FACEBOOK_APP_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/instagram';
   isBetweenSteps = true;
   toolTip = 'Instagram must be business and connected to a Facebook page';
   scopes = [

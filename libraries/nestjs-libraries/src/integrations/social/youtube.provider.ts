@@ -58,6 +58,8 @@ export class YoutubeProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 200; // YouTube has strict upload quotas
   identifier = 'youtube';
   name = 'YouTube';
+  requiredEnv = ['YOUTUBE_CLIENT_ID', 'YOUTUBE_CLIENT_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/youtube';
   isBetweenSteps = true;
   dto = YoutubeSettingsDto;
   scopes = [

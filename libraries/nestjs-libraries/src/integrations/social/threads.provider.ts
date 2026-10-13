@@ -22,6 +22,8 @@ import { hasExtension } from '@gitroom/helpers/utils/has.extension';
 export class ThreadsProvider extends SocialAbstract implements SocialProvider {
   identifier = 'threads';
   name = 'Threads';
+  requiredEnv = ['THREADS_APP_ID', 'THREADS_APP_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/threads';
   isBetweenSteps = false;
   scopes = [
     'threads_basic',

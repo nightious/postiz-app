@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   HttpException,
+  Logger,
   Param,
   Post,
   Put,
@@ -353,6 +354,14 @@ export class PublicIntegrationsController {
         },
         400
       );
+    }
+
+    const missingEnv = this._integrationManager.getMissingEnv(
+      integrationProvider.identifier
+    );
+    if (missingEnv) {
+      Logger.warn(missingEnv.message);
+      throw new HttpException({ msg: missingEnv.message }, 400);
     }
 
     try {

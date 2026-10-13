@@ -22,6 +22,8 @@ export class LinkedinPageProvider
 {
   override identifier = 'linkedin-page';
   override name = 'LinkedIn Page';
+  override docsUrl =
+    'https://docs.postiz.com/self-host/providers/linkedin-page';
   override isBetweenSteps = true;
   override refreshWait = true;
   override maxConcurrentJob = 2; // LinkedIn Page has professional posting limits

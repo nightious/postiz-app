@@ -223,6 +223,9 @@ export interface SocialProvider
   >;
   name: string;
   toolTip?: string;
+  // Env vars the connect flow needs, checked by IntegrationManager.getMissingEnv
+  requiredEnv?: string[];
+  docsUrl?: string;
   oneTimeToken?: boolean;
   isBetweenSteps: boolean;
   scopes: string[];

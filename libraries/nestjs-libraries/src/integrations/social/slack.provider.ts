@@ -20,6 +20,8 @@ export class SlackProvider extends SocialAbstract implements SocialProvider {
   override maxConcurrentJob = 10; // Slack limits are per workspace
   identifier = 'slack';
   name = 'Slack';
+  requiredEnv = ['SLACK_ID', 'SLACK_SECRET'];
+  docsUrl = 'https://docs.postiz.com/self-host/providers/slack';
   isBetweenSteps = false;
   editor = 'normal' as const;
   scopes = [
